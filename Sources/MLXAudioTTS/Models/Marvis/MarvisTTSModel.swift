@@ -35,7 +35,7 @@ public final class MarvisTTSModel: Module {
         promptURLs: [URL]? = nil,
         textTokenizer: Tokenizers.Tokenizer,
         audioTokenizer: MimiTokenizer
-    ) {
+    ) throws {
         _ = repoId
         self.model = CSMModel(config: config)
         self._promptURLs = promptURLs
@@ -45,7 +45,7 @@ public final class MarvisTTSModel: Module {
         self.sampleRate = Int(audioTokenizer.codec.cfg.sampleRate)
         super.init()
 
-        model.resetCaches()
+        try model.resetCaches()
     }
 
     public convenience init(
@@ -58,7 +58,7 @@ public final class MarvisTTSModel: Module {
         let textTokenizer = try await AutoTokenizer.from(pretrained: repoId, hubApi: hub)
         let codec = try await Mimi.fromPretrained(progressHandler: progressHandler)
         let audioTokenizer = MimiTokenizer(codec)
-        self.init(
+        try self.init(
             config: config,
             repoId: repoId,
             promptURLs: promptURLs,
@@ -182,7 +182,7 @@ public extension MarvisTTSModel {
         let textTokenizer = try await AutoTokenizer.from(modelFolder: modelDirectoryURL)
         let codec = try await Mimi.fromPretrained(cache: cache, progressHandler: progressHandler)
         let audioTokenizer = MimiTokenizer(codec)
-        let model = MarvisTTSModel(
+        let model = try MarvisTTSModel(
             config: args,
             repoId: modelRepo,
             promptURLs: audioPromptURLs,
@@ -409,7 +409,7 @@ public extension MarvisTTSModel {
                     let generationText = (context.text + " " + prompt).trimmingCharacters(in: .whitespaces)
                     let seg = Segment(speaker: 0, text: generationText, audio: context.audio)
                     
-                    model.resetCaches()
+                    try model.resetCaches()
                     _streamingDecoder.reset()
                     
                     let (toks, masks) = try tokenizeSegment(seg, addEOS: false)
@@ -433,7 +433,7 @@ public extension MarvisTTSModel {
                     for _ in 0 ..< maxAudioFrames {
                         if Task.isCancelled { break outerLoop }
                         
-                        let frame = model.generateFrame(
+                        let frame = try model.generateFrame(
                             maxCodebooks: qualityLevel.rawValue,
                             tokens: currTokens,
                             tokensMask: currMask,
