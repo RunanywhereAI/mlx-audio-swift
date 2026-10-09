@@ -61,7 +61,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/RunanywhereAI/mlx-swift.git", exact: "0.31.8"),
-        .package(url: "https://github.com/RunanywhereAI/mlx-swift-lm.git", exact: "3.31.9"),
+        .package(url: "https://github.com/RunanywhereAI/mlx-swift-lm.git", exact: "3.31.10"),
         .package(url: "https://github.com/huggingface/swift-transformers.git", .upToNextMajor(from: "1.1.6")),
         .package(url: "https://github.com/huggingface/swift-huggingface.git", .upToNextMajor(from: "0.8.1"))
     ],
