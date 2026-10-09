@@ -1,5 +1,5 @@
 {
-  "originHash" : "e9040470307810b25d80eadc87c7581107ac40e5555c701ff6db84066f5cc644",
+  "originHash" : "e3c230280dcf39f3f4afb396ce8b4a8aa5ad214256a560181ba1d8c8e679a76d",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RunanywhereAI/mlx-swift-lm.git",
       "state" : {
-        "revision" : "78281bd1d1f5710e35bdba4906c2e3fdf9dc6717",
-        "version" : "3.31.9"
+        "revision" : "4c31da1d4aa22e2d15b545120a0ba3c19368bc2c",
+        "version" : "3.31.10"
       }
     },
     {
